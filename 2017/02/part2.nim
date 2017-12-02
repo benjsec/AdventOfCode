@@ -13,16 +13,16 @@ var
         9 4 7 3
         3 8 6 5"""
 
-proc row_div(row: string): int =
-    var rownums: seq[int]
-    rownums = map(splitWhitespace(row), proc(x: string): int = parseInt(x))
-    for idx in low(rownums)..high(rownums):
-        for idx2 in low(rownums)..high(rownums):
+proc row_div(rowstr: string): int =
+    var row: seq[float32]
+    row = map(splitWhitespace(rowstr), proc(x: string): float32 = float32(parseInt(x)))
+    for idx in low(row)..high(row):
+        # Need to use whole list both times as division is non-commutative
+        for idx2 in low(row)..high(row):
             if idx == idx2:
                 continue
-            var outp: float32 = rownums[idx]/rownums[idx2]
-            if outp == floor(outp):
-                return int(outp)
+            if fmod(row[idx], row[idx2]) == 0:
+                return int(row[idx]/row[idx2])
 
 proc checksum(table: string): int =
     return math.sum(map(splitLines(table), proc(x: string): int = row_div(x)))
