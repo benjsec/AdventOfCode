@@ -40,3 +40,8 @@ proc calc_steps(input: string): int =
 
 
 assert calc_steps("0 2 7 0") == 5
+
+var puzzle: string = """
+2   8   8   5   4   2   3   1   5   5   1   2   15  13  5   14"""
+
+echo "Puzzle solution is ", calc_steps(puzzle)
