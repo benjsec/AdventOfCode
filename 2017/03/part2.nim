@@ -1,4 +1,5 @@
 import math
+import sequtils
 import tables
 
 type 
@@ -15,53 +16,60 @@ proc get(table: TableRef, x: int, y: int): int =
     except KeyError:
         return 0
 
-proc calc(table: TableRef, x:int, y:int) =
-    var neighbours: seq[int] = @[]
-    for i_X in @[x-1, x+1]:
-        for i_Y in @[y-1, y+1]:
-            neighbours.add(get(table, i_X, i_Y))
-    set(table, x, y) = sum(neighbours)
+proc calc(matrix: seq, x:int, y:int): int =
+    var neighbours = @[0]
+    for i_X in x-1..x+1:
+        for i_Y in y-1..y+1: 
+            echo i_X, ", ", i_Y
+            neighbours.add(matrix[i_X][i_Y])
+    echo neighbours
+    return sum(neighbours)
 
-var spiral: newTable[coordinate, int]()
-assert get(spiral, 0, 0) == 0
-set(spiral, 0, 0, 1)
-assert get(spiral, 0, 0) == 1
+var seq2D = newSeqWith(20, newSeq[int](20))
+seq2D[10][10] = 1
+seq2D[11][10] = calc(seq2D, 11, 10)
+echo seq2D[11][10]
 
+iterator odd_primes(): int {.closure.} =
+    # Iterator to return all odd primes {1, 9, 25, ...}
+    var i: int=1
+    while true:
+        yield i*i
+        i+=2
 
-# iterator odd_primes(): int {.closure.} =
-#     # Iterator to return all odd primes {1, 9, 25, ...}
-#     var i: int=1
-#     while true:
-#         yield i*i
-#         i+=2
+proc get_ring(position: int): int =
+    # Given a number in a spiral sequence, return the layer number
+    var layer: int = 0
+    for max_num in odd_primes():
+        if max_num >= position:
+            return layer
+        layer += 1
 
-# proc get_ring(position: int): int =
-#     # Given a number in a spiral sequence, return the layer number
-#     var layer: int = 0
-#     for max_num in odd_primes():
-#         if max_num >= position:
-#             return layer
-#         layer += 1
+proc get_odd_prime(n: int): int =
+    # Return the nth odd prime {1, 9, 25, ...}
+    return ((2*n)-1) ^ 2
 
-# proc get_odd_prime(n: int): int =
-#     # Return the nth odd prime {1, 9, 25, ...}
-#     return ((2*n)-1) ^ 2
+proc rotate(position: int): int =
+    # If a position is not in first quarter return the corresponding position from
+    # the first quarter
+    let ring_num: int = get_ring(position)
+    let num_in_ring: int = get_odd_prime(ring_num+1) - get_odd_prime(ring_num)
+    var res: int = position-1
+    while res > num_in_ring div 4:
+        res -= num_in_ring div 4
+    return res
 
-# proc rotate(position: int): int =
-#     # If a position is not in first quarter return the corresponding position from
-#     # the first quarter
-#     let ring_num: int = get_ring(position)
-#     let num_in_ring: int = get_odd_prime(ring_num+1) - get_odd_prime(ring_num)
-#     var res: int = position-1
-#     while res > num_in_ring div 4:
-#         res -= num_in_ring div 4
-#     return res
+proc dist_to_centre(position: int): int =
+    let ring_num: int = get_ring(position)
+    let num_in_ring: int = get_odd_prime(ring_num+1) - get_odd_prime(ring_num)
+    let centre: int = (num_in_ring div 8)
+    return abs(rotate(position)-centre)
 
-# proc dist_to_centre(position: int): int =
-#     let ring_num: int = get_ring(position)
-#     let num_in_ring: int = get_odd_prime(ring_num+1) - get_odd_prime(ring_num)
-#     let centre: int = (num_in_ring div 8)
-#     return abs(rotate(position)-centre)
+proc get_coords(position: int, offset: int=10): tuple =
+    let ring_num: int = get_ring(position)
+    let num_in_ring: int = get_odd_prime(ring_num+1) - get_odd_prime(ring_num)
+    
+    return {"x"= x+offset, "y"=y+offset}
 
 
 # proc spiral_mem_steps(position: int): int=
