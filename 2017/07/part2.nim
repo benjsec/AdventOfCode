@@ -77,10 +77,11 @@ proc check_even(stack: var Table, prog: Program): bool =
         weights[child] = stack.calc_weight(stack[child])
     # echo weights
     var s: seq[int] = toSeq(weights.values())
-    echo s, ", ", deduplicate(s), ", ", len(deduplicate(s)) == len(s)
+    # echo s, ", ", deduplicate(s), ", ", len(deduplicate(s)) == len(s)
     if len(deduplicate(s)) <= 1:
         return true
-    echo prog.name, " is inbalanced"
+    # echo prog.name, " is inbalanced"
+    echo weights
     return false
 
 proc inbalance_search(stack: var Table, head: string=nil) =
@@ -93,14 +94,10 @@ proc inbalance_search(stack: var Table, head: string=nil) =
         for child in stack[h].children:
             inbalance_search(stack, child) 
 
-for p in read_input(example):
-    stack.add_program(p)
+# for p in read_input(example):
+#     stack.add_program(p)
 
-# for n, p in stack.pairs():
-#     var weights: string = stack.check_even(p)
-#     if weights != nil:
-#         echo n, ": ", weights
-inbalance_search(stack)
+# inbalance_search(stack)
 
 var puzzle: string = """
 czlmv (78)
@@ -1164,6 +1161,7 @@ hufrsq (3110) -> cmouh, vbdycf, seicwz, pwdoio, bhwnch, ozxpbo
 tvhftq (35)"""
 
 
-# for p in read_input(puzzle):
-#     stack.add_program(p)
+for p in read_input(puzzle):
+    stack.add_program(p)
 # echo "Head of stack is ", stack.find_head()
+inbalance_search(stack)
