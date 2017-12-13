@@ -1,9 +1,12 @@
 # Advent of Code Day 10 part 1 - hex grid
 
-import future
+# With thanks to http://devmag.org.za/2013/08/31/geometry-with-hex-coordinates/
+# for helping me understand hex grid coordinates
+
+
 import sequtils
 import strutils
-import math
+
 
 proc `+`(s1: seq[int], s2: seq[int]): seq[int] =
     assert len(s1) == len(s2)
