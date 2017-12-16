@@ -84,15 +84,12 @@ proc hash(input:string): string =
     let dense_hash = reduce(list)
     return asHex(dense_hash)
 
-echo hash("")
-# echo hash("AoC 2017")
+echo hash("") # == "a2582a3a0e66e6e86e3812dcb672a272"
+# echo hash("AoC 2017") # == "33efeb34ea91902bb2f59c9920caa6cd"
+# echo hash("1,2,3") # == "3efbe78a8d82f29979031a4aa0b16a9d"
+# echo hash("1,2,4") # == "63960835bcdc130f0b66d7ff4f6a5a8e"
 
-# var
-#     puzzle_array: seq[int] = @[]
-#     puzzle_input: seq[int] = @[88,88,211,106,141,1,78,254,2,111,77,255,90,0,54,205]
 
-# for x in 0..255:
-#     puzzle_array.add(x)
+## Puzzle result
 
-# puzzle_array.twist(puzzle_input)
-# echo puzzle_array[0] * puzzle_array[1]
+# echo hash("88,88,211,106,141,1,78,254,2,111,77,255,90,0,54,205")
