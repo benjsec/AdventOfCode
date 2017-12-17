@@ -2,8 +2,8 @@ import math
 import sequtils
 
 let
-    A_start: int = 65
-    B_start: int = 8921
+    A_start: int = 116
+    B_start: int = 299
     count: int = 5_000_000
 
 iterator gen_A(): int {.closure.}=
@@ -41,8 +41,6 @@ proc match(A: seq[int], B: seq[int]): seq[int] =
     for i in low(A)..high(A):
         result[i] = match(A[i], B[i])
 
-# assert match(toSeq(gen_A()), toSeq(gen_B())) == @[0, 0, 0, 0, 0]
-
 
 iterator zip[T1, T2](inp1: iterator(): T1, inp2: iterator(): T2): (T1, T2) {.noSideEffect.} =
     ## Inline iteration on 2 closure iterators at the same time
@@ -63,11 +61,5 @@ proc score(): int =
         result += match(x, y)
 
 
-assert score() == 309
+# assert score() == 309
 echo score()
-
-
-# for x in gen_A(65):
-#     assert x == 1092455
-#     assert x == 1181022009
-#     break
