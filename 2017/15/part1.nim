@@ -2,8 +2,8 @@ import math
 import sequtils
 
 let
-    A_start: int = 65
-    B_start: int = 8921
+    A_start: int = 116
+    B_start: int = 299
     count: int = 40_000_000
 
 iterator gen_A(): int {.closure.}=
@@ -60,7 +60,7 @@ proc score(): int =
 
 
 # assert score() == 1
-assert score() == 588
+echo score()
 
 
 # for x in gen_A(65):
