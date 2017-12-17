@@ -4,7 +4,7 @@ import sequtils
 let
     A_start: int = 65
     B_start: int = 8921
-    count: int = 5
+    count: int = 5_000_000
 
 iterator gen_A(): int {.closure.}=
     var value:int = A_start
@@ -22,8 +22,8 @@ iterator gen_B(): int {.closure.}=
             value = (value * 48271) mod 2147483647
         yield value
 
-assert toSeq(gen_A()) == @[1352636452, 1992081072, 530830436, 1980017072, 740335192]
-assert toSeq(gen_B()) == @[1233683848, 862516352, 1159784568, 1616057672, 412269392]
+# assert toSeq(gen_A()) == @[1352636452, 1992081072, 530830436, 1980017072, 740335192]
+# assert toSeq(gen_B()) == @[1233683848, 862516352, 1159784568, 1616057672, 412269392]
 
 proc match(A: int, B: int): int =
     var x, y: int
@@ -41,7 +41,7 @@ proc match(A: seq[int], B: seq[int]): seq[int] =
     for i in low(A)..high(A):
         result[i] = match(A[i], B[i])
 
-assert match(toSeq(gen_A()), toSeq(gen_B())) == @[0, 0, 0, 0, 0]
+# assert match(toSeq(gen_A()), toSeq(gen_B())) == @[0, 0, 0, 0, 0]
 
 
 iterator zip[T1, T2](inp1: iterator(): T1, inp2: iterator(): T2): (T1, T2) {.noSideEffect.} =
@@ -63,7 +63,7 @@ proc score(): int =
         result += match(x, y)
 
 
-# assert score() == 1
+assert score() == 309
 echo score()
 
 
