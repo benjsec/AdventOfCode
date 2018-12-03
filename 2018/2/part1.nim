@@ -1,0 +1,295 @@
+# This is a comment
+import sets
+import strformat
+import strutils
+
+proc has_double(input: string): int =
+    let elemset: HashSet[char] = toSet(input)
+    for letter in elemset.items():
+        if input.count(letter) == 2:
+            echo fmt("{letter} appears twice.")
+            result = 1
+
+
+proc has_tripple(input: string): int =
+    let elemset: HashSet[char] = toSet(input)
+    for letter in elemset.items():
+        if input.count(letter) == 3:
+            echo fmt("{letter} appears thrice.")
+            result = 1
+
+
+proc checksum(input: string): int =
+    let arr = input.split('\n')
+    var twos: int = 0
+    var threes: int = 0
+    for i in low(arr)..high(arr):
+        let elem = arr[i]
+        echo elem
+        twos += has_double(elem)
+        threes += has_tripple(elem)
+    echo fmt"Twos: {twos} Threes: {threes}"
+    return twos * threes
+
+assert checksum("""abcdef
+abcdef
+bababc
+abbcde
+abcccd
+aabcdd
+abcdee
+ababab""") == 12
+
+echo checksum("""
+pbopcmjeizuhxlqnwasfgtycdm
+pjokrmjeizuhxlqnfasfguycdv
+pbokrpjejkuhxlqnwasfgtycdv
+sbokrmjeizuhxaqnwastgtycdv
+pbokrmjeizuhxljnnasfgtycnv
+pbokrqjeizuhxbqndasfgtycdv
+bbokrmjeizuhxlqnwasfgtycfj
+pbokrmjeisuhxlqnwasfzdycdv
+pbokrmjefxuhxlqnwasfptycdv
+pqokrmjenzuhxlqnwasfgtygdv
+pbokrmjeizunklqnwassgtycdv
+pbokrmjeizghxvqnkasfgtycdv
+lboirmjeizuhxlqnwfsfgtycdv
+pbofrmjeizuhalqnwasfgtyddv
+pbokrmjeiguhplqcwasfgtycdv
+pbokrmjeizzhxlqnwavfgtyctv
+pbokrmjeizuhxlqnwaefgtycaj
+pbokzmjedzuhxlqnwasfgtlcdv
+pnokrmjegzuhxlbnwasfgtycdv
+pbojrmjeizuhtlqniasfgtycdv
+pbokxmiefzuhxlqnwasfgtycdv
+pbokrmoeizuhxlqnpasngtycdv
+abokrmjeezuhxlqnwasfdtycdv
+pbokrmyeizugxlqnwasfgtycda
+pbokdmjeizuhxlqnuatfgtycdv
+psokrmjeiauhxlqnwasxgtycdv
+pbokrmjeizuhxlqzwasfgtyzdy
+pboktmjeizuhxnqndasfgtycdv
+pbodrrjeizuhxlqnwasfgtycdb
+pbokrmjekzuhxljnwasfgtycuv
+pbokrmjnizuhllqnwawfgtycdv
+prmkrmjeiwuhxlqnwasfgtycdv
+pbokrmjeizkhxlenwajfgtycdv
+pbofrmjeizuixlqnwasfgoycdv
+gbhkrmjeizuhclqnwasfgtycdv
+pbokrmweizuwxlqnwasfgtycyv
+pbukrmjeizuhxlqnwasfgqhcdv
+pbokxmjeizuhxlqnwasfgtecdu
+pbokomjeizuhrlqnfasfgtycdv
+bbokymjeizuhxlqnpasfgtycdv
+pbodrmjeizuhxlqnwadfgtgcdv
+zbokrljeipuhxlqnwasfgtycdv
+pboermjeizuxxlqnwasfgtpcdv
+pqbkrmjeizuhxlqnjasfgtycdv
+pbokrmfeizuhxvqgwasfgtycdv
+pbokrmjeizuhzlqnjasfdtycdv
+rbofrmjeizkhxlqnwasfgtycdv
+pbokrmseizubxlqnwasfgtycdy
+pbocrmjeizuhxaqnwasfgtycda
+pbokrmjeizuhxlqndakfgtscdv
+pbokrrjeizuhxlqnwgshgtycdv
+pbokrajeizuhxpqnwasrgtycdv
+pbokrbjeizubxlqnwssfgtycdv
+pbokemjhizuhxlqnwazfgtycdv
+pbokrmjeizuhxlqntisfgtyrdv
+pbokrmjwinuhxlqnwasfgkycdv
+pypkrmjeizuhxlqtwasfgtycdv
+pbokrmjeizuhxlqniasfrpycdv
+pbokomjeizuhxlqnwasfgtgcdw
+pbokrmjeizusplqnwxsfgtycdv
+pbodrmueizxhxlqnwasfgtycdv
+pbokwmjeizurxlqnwasfgtycdi
+pbohrmjejzuhxlqnwasfgtycgv
+pbokrmtqizuhxlqnwasfitycdv
+ptozrmjeizuhylqnwasfgtycdv
+pbokrmjtizuhxlqfwasfgtykdv
+pbokrmpeizuhxnqmwasfgtycdv
+pbokrmjeizujxlynwtsfgtycdv
+dbokrmjeizuhxlqnwasngticdv
+pbskrmjeizuhxlqnrasfttycdv
+pbwkrmjerzuhxlqnwaslgtycdv
+pboyrmceizuhxlqnwssfgtycdv
+pbokpmjeizchxlqngasfgtycdv
+pbokrmjenzuhxlqnwcsfgxycdv
+pbxkrmjeizuhxlqnwadfgtyckv
+pbqkrmjeizuhxlqnwasdgdycdv
+pbokrmoeizdhxlqnwasfgtycqv
+pbokrmjejzuhxlqnwksfgtycwv
+pbfkrmjeieuhxlnnwasfgtycdv
+pbokrmjeiuuhxlqnpalfgtycdv
+pbokrmjeizunxyqnwasfgtdcdv
+pbokrmjeazuhxrqnwasogtycdv
+pbmkrmjeizuhxlqnwaufgtycdj
+xbskrmjeipuhxlqnwasfgtycdv
+tbokrujlizuhxlqnwasfgtycdv
+xbokvmjeizuhxyqnwasfgtycdv
+pbnhrmheizuhxlqnwasfgtycdv
+pboorajrizuhxlqnwasfgtycdv
+pbokrmjeizuhxminwusfgtycdv
+pboqrmjeizuhxlqnwaslgtscdv
+pgokrdjeizuhxlnnwasfgtycdv
+pbokrmjeizuhxiqnwasvttycdv
+pbokrmwnizuhzlqnwasfgtycdv
+pbokrmjlizmhjlqnwasfgtycdv
+pbwkrmjeizohxlqnwasfgtyzdv
+pbykrmjmizwhxlqnmasfgtycdv
+pbokrmjzizuhxeqnwasfgtpcdv
+pbokrmjewzuhxzqnwasfgtybdv
+pbokrmjeimupxlonwasfgtycdv
+pbokrmjvizuhxlqnuasfgtycqv
+pbokrmjeizjdxlqnwasfetycdv
+pbofrmjeizurxlqnwasfztycdv
+pbozrmjeizuhxxqpwasfgtycdv
+pbovtmjeizuhxlqnwapfgtycdv
+prokrmjeuzuhxlqnwasfgtycqv
+ubokrmjeizuhxljnwasfgtdcdv
+pboknmjepzuhxlqnwasogtycdv
+pbokrmjaizuaxljnwasfgtycdv
+pbdkrcjeizuhxlqnwasfgtvcdv
+pbokymjeizuhxlqnwaxfgtyfdv
+pbokrmjaizuhxlqnfasfgtyodv
+pdekrmmeizuhxlqnwasfgtycdv
+rbokrmjeizuuxlqnwasfgtycdj
+pbokrmneifuhxlqiwasfgtycdv
+pbokrmjeizlbxlunwasfgtycdv
+pbokrmjewzuhxxqnwasfgoycdv
+pbokrmjeizuhxlqtwasfgtzcdo
+pbokrmkeizzhxlqnwasfgtycmv
+pbokrmjeiquhxlqnywsfgtycdv
+xbokrmjeizjhxlqdwasfgtycdv
+pbokrmjeizahxzqnzasfgtycdv
+pbokrmjeizuhxmqmwasfgtytdv
+pbokrmheiluhxlqnwasfgoycdv
+rbokrmjeizuhxlqnwaslgtycqv
+pbbkzmjeizuhxvqnwasfgtycdv
+pbokrmjeizudxlznwgsfgtycdv
+pbokemjeizuhxlqnwascgtysdv
+pbokrmjdizuexlgnwasfgtycdv
+pbokzmjeizuhxlqnwnsfggycdv
+pbokrmjeizuhxtqnwasfgiycdy
+bbokrmjeizuhclunwasfgtycdv
+pbtkrmjeieuhxlqnwasfgtycrv
+pbokrmjeizutxlbnwasngtycdv
+pbokrmjevzumxlqnwasfgtyydv
+pbokrmjsizuhxlqowasfgtycyv
+pbssrmjeizuhxlqbwasfgtycdv
+pbokrmjeizuhflqnwxsfstycdv
+pbokimjeizuhxlqnwasfgtywdm
+pbokrmjbizuhxlqdwasfgtygdv
+pbokrmheizuhxlqxwasfgtycnv
+poakrmjeizuhylqnwasfgtycdv
+vbrkrmjeizuhxlqnwaszgtycdv
+pbokrmjeizuhxiqnudsfgtycdv
+pbokrldeizuhxlqnwasjgtycdv
+pbokrmjeizjhflqnwasfgtymdv
+pbokrmjeizuhxliawasfgtvcdv
+pbokrmjeisuhtoqnwasfgtycdv
+nbokrijeizuhxlqnwasfgtycdh
+pbokrmjeizrhxlqnwxsfztycdv
+pbotrmjeizuhxlcnwasfgtyvdv
+pbokrmjewzuhxlquwasfgtjcdv
+pbosrmjeipuhxlqnwasfgtvcdv
+pbokrmjebzurxlunwasfgtycdv
+pbogimieizuhxlqnwasfgtycdv
+pbokrmjeizihxlqnwasagtyzdv
+pbokrmjeizuoxlqnausfgtycdv
+pbokrmjeizuhxlqnwashgbjcdv
+pbokrdjeizuhxlnnwasfgoycdv
+pbokrzjtizlhxlqnwasfgtycdv
+peokrmjexzuhxlqnwasfgoycdv
+cboprmjeizuhxlqnwasfgfycdv
+pbitrmjeizjhxlqnwasfgtycdv
+pbourmjeizuhxldnwjsfgtycdv
+pboivmjeizuhxlqnwasvgtycdv
+pbokrmjeiduhxaqnqasfgtycdv
+pbokicjeiwuhxlqnwasfgtycdv
+pbokrmmeizulxlqnwasfgtyvdv
+pbokrmjeieuhxlqnaapfgtycdv
+pbokxmjeiuuhxlqnwasfgtyqdv
+pbokrmjeizuhxgqniaslgtycdv
+pbokrmjeizuuxlqnwisfgtyckv
+pbovlmjepzuhxlqnwasfgtycdv
+pbokrmjeizuhxlqdwaqfgtycdj
+pbztrvjeizuhxlqnwasfgtycdv
+pbokrmjeizuholunwasfptycdv
+pbokrmjeizudxlqnwusfgtycqv
+nbokrmjzizmhxlqnwasfgtycdv
+pbokrmjeypunxlqnwasfgtycdv
+pbokrjjxizuhxlqnwasfgtyddv
+pbokrmjeizuhilqnwiufgtycdv
+pbokrmjeizuhxtqowasfgfycdv
+qbokrgjeizuhxlqnwasfgtycdx
+pvoarmjeizuhxlqnwasfgtfcdv
+pbokrmjjizuhxlqnwasfggyczv
+pbtkrmjeizuhnlqncasfgtycdv
+pbokrmjeizuzxlqnwasfgtyjnv
+jmokrmzeizuhxlqnwasfgtycdv
+pbykrmjmizwhxlqnwasfgtycdv
+nbokrmjeizlhxlqnwasfgtecdv
+pbokrmjeizuhxlqhwasrgrycdv
+pbokrmjeiruhxlqnwasfgtnedv
+pbokrmjeizohxlznwasfgtycuv
+paokrmjdizuhxlqnwasfktycdv
+pbokrmjetzutxlqnwasfntycdv
+pboyrmjeizuhxlqnwasfgtetdv
+pbokgujeizuhxlqwwasfgtycdv
+pbokrifeizshxlqnwasfgtycdv
+sbokrmjeizfhxlqnaasfgtycdv
+pbokrmjeizuhxlqpwrsfgfycdv
+pbokxmjeikuhxlqnwasfctycdv
+fbokrmjhizuhxlqnmasfgtycdv
+pbekamjeizuhxlqnwaxfgtycdv
+pboksmpeizuhxlqnwasfgtyclv
+pbokrmjeizrhxdqnwasfgzycdv
+pbogrmxeizurxlqnwasfgtycdv
+pbokrmjeieuhxlqnwqsfgtychv
+vbokrmjeizuhxlqnwabfgtycdq
+lbokrmjeizupxlqvwasfgtycdv
+pbokrmjeizuhglqnuasfgtucdv
+hbokrmjeizuhelqnwasfgtrcdv
+pbokrmweizuhxlqnwhsfgtyvdv
+pbokrmjeizuhxrqnwasfvtccdv
+pbokrmneizuhxlwnyasfgtycdv
+ybokymjeqzuhxlqnwasfgtycdv
+pbousmjeizuhxlqswasfgtycdv
+pblkimjeizuhxlqnwacfgtycdv
+psokrmjeizuhxlqnwasfgbpcdv
+peokrwjeizghxlqnwasfgtycdv
+pbokrmjeizudxlqnwzsfrtycdv
+pbotrmjezzxhxlqnwasfgtycdv
+pkokrmjezzuhxlqnwasfgtycdh
+pbokrmleizuhxlnnwasfgtyndv
+pboxwmjeituhxlqnwasfgtycdv
+pbokrmjeizoczlqnwasfgtycdv
+pbokomjeizuhxlqnwhsfgtybdv
+pbhwrmjeizuhxlqnwasfgpycdv
+pbwkrmjeizuhxeqnwasfgtyidv
+pbokrmjeizuhxlqnjasfgmicdv
+tbokrgjeizuhxlqhwasfgtycdv
+pbolrqjeizuhxlqnhasfgtycdv
+pbogrhjeizbhxlqnwasfgtycdv
+pbokrmjeizghxlqnwashgtycdx
+pbokrmjeizuhrlqnwasfgthcrv
+pbokrmjeizuhxlqnwfsngtacdv
+pbokrmxeizuhxlqnwasfotyctv
+pbokrmjeizuhxlqnwcsfgnocdv
+pnokbmjeizuhxlqnwasfgtscdv
+pbowrmjeuzuhxlqnwasfgtycdw
+pbokrmjeiyuhxlqnwasqgtvcdv
+pbokrmjeivuhxkpnwasfgtycdv
+pbokomjeizuhxlqnwasfgtylav
+pbdkrmjeizuhxlgnwjsfgtycdv
+pbokrmjeizuaxxqnwasfytycdv
+pbokrmjerzuhxlqnwasfgtscdk
+pbokrmzerzuhxlqnwasfntycdv
+pbokrmjeizumxdqnwasfgtyckv
+pbtkrmjeizrhxlqnwasfgtjcdv
+pbmkrmjuizuhxlqnwasfgtytdv
+pbokpmjeizuhxlqnwastgtzcdv
+kbokrmjeizuhxlqnwasfgzjcdv
+
+""")
