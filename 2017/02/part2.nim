@@ -2,12 +2,12 @@ import math
 from strutils import parseInt, split, splitWhitespace, splitLines
 from sequtils import map
 
-var
+const
     row1: string = "5 9 2 8"
     row2: string = "9 4 7 3"
     row3: string = "3 8 6 5"
 
-var
+
     table: string = """
         5 9 2 8
         9 4 7 3
